@@ -1,0 +1,49 @@
+{
+  "dependencies": {
+    "@browserless/aws-lambda-chrome": "^1.0.4",
+    "bluebird": "^3.5.1",
+    "bunyan": "^1.8.12",
+    "express": "^4.16.2",
+    "fs-extra": "^5.0.0",
+    "jsonpath": "^1.0.0",
+    "lodash": "^4.17.5",
+    "lodash.merge": "^4.6.1",
+    "node-fetch": "^2.1.1",
+    "parse-address": "^0.0.10",
+    "puppeteer": "^1.1.1",
+    "query-string": "^5.1.0",
+    "redis": "^2.8.0",
+    "resemblance": "^1.0.0"
+  },
+  "scripts": {
+    "cleanup": "rm -rf ./dist /tmp/browserless",
+    "pre": "yarn cleanup && yarn webpack && cp package.json dist && cp up.json dist && cd dist && PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1 yarn install --production && cp -R ./node_modules/@browserless/aws-lambda-chrome/dist ./",
+    "dply": "yarn pre && yarn pub",
+    "pub": "cd dist && up",
+    "dev": "nodemon -L src/index.js",
+    "flush": "node scripts/flush-db.js",
+    "logs": "up logs -f",
+    "start": "node src/index.js",
+    "spike": "http `up url`crawl",
+    "test": "DEBUG_BROWSER=true jest --forceExit",
+    "local": "http localhost:4009/crawl",
+    "webpack": "webpack",
+    "watch:docker": "npm-run-all --parallel watch:server watch:build",
+    "watch:build": "webpack --watch",
+    "watch:server": "nodemon --inspect \"./dist/src/index.js\" --watch \"./dist\""
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-stack-trace-sourcemap": "^1.0.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "jest": "^22.4.2",
+    "nodemon": "^1.17.1",
+    "npm-run-all": "^4.1.2",
+    "source-map-support": "^0.5.3",
+    "webpack": "^3.10.0",
+    "webpack-node-externals": "^1.6.0"
+  }
+}

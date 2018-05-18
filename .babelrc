@@ -1,0 +1,17 @@
+{
+  "presets": [
+    [
+      "env", {
+        "targets": {
+          "node": "6.10"
+        },
+        "loose": false,
+        "spec": true
+      }
+    ]
+  ],
+  "plugins": [
+    "babel-plugin-stack-trace-sourcemap",
+    "transform-object-rest-spread"
+  ]
+}
